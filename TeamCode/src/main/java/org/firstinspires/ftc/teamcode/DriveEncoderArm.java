@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name = "Arcade Drive - Encoder Arm", group = "Iterative Opmode")
-@Disabled
+//@Disabled
 public class DriveEncoderArm extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -61,7 +61,7 @@ public class DriveEncoderArm extends OpMode {
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
 
-        claw.setPosition(1.0);
+//        claw.setPosition(1.0);
         drive(0, 0);
     }
 
@@ -76,8 +76,8 @@ public class DriveEncoderArm extends OpMode {
         double speed_variant = 0.7;
         double speed = gamepad1.right_trigger * speed_variant - gamepad1.left_trigger * speed_variant;
         double direction = -gamepad1.left_stick_x;
-        int armDistanceUp = (int)(gamepad2.left_trigger * 10);
-        int armDistanceDown = (int)(gamepad2.right_trigger * 10);
+        int armDistanceUp = (int)(gamepad2.left_trigger * 90);
+        int armDistanceDown = (int)(gamepad2.right_trigger * 60);
 
         armRun(armDistanceUp);
         armRun(-armDistanceDown);
@@ -155,7 +155,7 @@ public class DriveEncoderArm extends OpMode {
 
     }
 
-    public void moveLeft(double speed) {
+    public void moveRight(double speed) {
         telemetry.addData("Strafe speed", speed);
 
 
@@ -165,11 +165,11 @@ public class DriveEncoderArm extends OpMode {
         rightBottom.setPower(-speed * 0.75);
     }
 
-    public void moveRight(double speed) {
+    public void moveLeft(double speed) {
         telemetry.addData("moveRight speed", speed);
 
 
-        moveLeft(-speed);
+        moveRight(-speed);
     }
 
     public enum DriveDir {
@@ -219,11 +219,22 @@ public class DriveEncoderArm extends OpMode {
     }
 
     private void armRun(int armDistance) {
+        if (armDistance == 0) {
+            return;
+        }
+
         try {
 
             arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             int newPosition = arm.getCurrentPosition() + armDistance;
+
+            // make sure arm doesn't go out of bounds
+            if (newPosition < 0) {
+                newPosition = 0;
+            } else if (newPosition > 235) {
+                newPosition = 235;
+            }
 
             arm.setTargetPosition(newPosition);
 

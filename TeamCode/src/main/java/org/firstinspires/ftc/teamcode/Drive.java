@@ -62,7 +62,7 @@ public class Drive extends OpMode {
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
 
-        claw.setPosition(1.0);
+//        claw.setPosition(1.0);
         drive(0, 0);
     }
 
@@ -157,7 +157,7 @@ public class Drive extends OpMode {
 
     }
 
-    public void moveLeft(double speed) {
+    public void moveRight(double speed) {
         telemetry.addData("Strafe speed", speed);
 
 
@@ -167,11 +167,11 @@ public class Drive extends OpMode {
         rightBottom.setPower(-speed * 0.75);
     }
 
-    public void moveRight(double speed) {
+    public void moveLeft(double speed) {
         telemetry.addData("moveRight speed", speed);
 
 
-        moveLeft(-speed);
+        moveRight(-speed);
     }
 
     public enum DriveDir {

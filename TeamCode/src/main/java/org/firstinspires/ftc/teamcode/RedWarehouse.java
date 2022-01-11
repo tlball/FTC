@@ -30,7 +30,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -167,10 +166,10 @@ public class RedWarehouse extends LinearOpMode {
     }
 
     private void strafeToPosition(int strafePosition) {
-        leftTop.setTargetPosition(leftTop.getCurrentPosition() + strafePosition);
-        leftBottom.setTargetPosition(leftBottom.getCurrentPosition() - strafePosition);
-        rightTop.setTargetPosition(rightTop.getCurrentPosition() - strafePosition);
-        rightBottom.setTargetPosition(rightBottom.getCurrentPosition() + strafePosition);
+        leftTop.setTargetPosition(leftTop.getCurrentPosition() - strafePosition);
+        leftBottom.setTargetPosition(leftBottom.getCurrentPosition() + strafePosition);
+        rightTop.setTargetPosition(rightTop.getCurrentPosition() + strafePosition);
+        rightBottom.setTargetPosition(rightBottom.getCurrentPosition() - strafePosition);
 
         leftBottom.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftTop.setMode(DcMotor.RunMode.RUN_TO_POSITION);
